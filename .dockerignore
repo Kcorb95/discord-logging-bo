@@ -36,6 +36,7 @@ Dockerfile
 .env.example
 dev.env
 prod.env
+postgres.env
 
 # Miscellaneous
 .tmp

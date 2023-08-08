@@ -27,7 +27,11 @@ module.exports = class TimeoutScheduler {
           const channel = await guild.channels.resolve(mute.channelID);
           if (!channel) return mute.destroy();
           channel.permissionOverwrites.map((perm) => {
-            if (perm.id === mute.userID) perm.delete();
+            if (perm.id === mute.userID)
+              perm.update({
+                SEND_MESSAGES: null,
+                ADD_REACTIONS: null,
+              });
           });
           timers.delete(`${mute.userID}.${mute.guildID}.${mute.channelID}`);
 

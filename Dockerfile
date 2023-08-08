@@ -1,6 +1,6 @@
 FROM node:alpine
 LABEL name "Sakura Bot"
-LABEL version "0.0.2"
+LABEL version "1.0.0"
 LABEL maintainer "Kevin <akira.antisocialsociety@gmail.com>"
 ARG VERSION
 ENV NODE_ENV= \
@@ -11,7 +11,7 @@ ENV NODE_ENV= \
     DB_NAME= \
     DB_HOST= \
     DB_PORT= \
-    RAVEN= \
+    SENTRY= \
     PATREON_TOKEN= \
     VERSION=$VERSION
 

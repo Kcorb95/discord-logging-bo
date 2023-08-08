@@ -44,7 +44,7 @@ class SakuraClient extends AkairoClient {
           ended: (msg) => `${msg.author} **::** Too many retries, command has been cancelled.`,
           cancel: (msg) => `${msg.author} **::** Command has been cancelled.`,
           retries: 3,
-          time: 30000,
+          time: 60000,
         },
       },
     });
@@ -101,7 +101,7 @@ class SakuraClient extends AkairoClient {
         perms.MANAGE_GUILD ||
         perms.MANAGE_MESSAGES
       )
-        return Flag.fail("You can't do this to another staff member you stupid fuckin nerd.");
+        return Flag.fail("You can't do this to another staff member you fuckin nerd.");
       return member;
     });
 

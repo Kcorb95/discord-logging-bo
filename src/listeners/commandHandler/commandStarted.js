@@ -1,7 +1,7 @@
 /* eslint-disable multiline-ternary */
 const { Listener } = require('discord-akairo');
 const Logger = require('../../util/Logger');
-const Raven = require('raven');
+const Sentry = require("@sentry/node");
 
 class CommandStartedListener extends Listener {
     constructor() {
@@ -16,9 +16,10 @@ class CommandStartedListener extends Listener {
         const tag = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
         Logger.log(`=> ${command.id}`, { tag });
 
-        Raven.captureBreadcrumb({
+        Sentry.addBreadcrumb({
             message: 'command_started',
             category: command.category.id,
+            level: Sentry.Severity.Log,
             data: {
                 user: {
                     id: message.author.id,
@@ -40,7 +41,7 @@ class CommandStartedListener extends Listener {
                 args
             }
         });
-        Raven.setContext({
+        Sentry.setContext({
             user: {
                 id: message.author.id,
                 username: message.author.tag

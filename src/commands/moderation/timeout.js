@@ -58,6 +58,7 @@ class TimeoutCommand extends Command {
   }
 
   userPermissions(message) {
+    if (message.author.id === this.client.ownerID) return null;
     const canBeRun = Permissions.canRun(this, message.guild, message.channel, message.member);
     if (canBeRun === true) return null;
     return "NoPerms";
@@ -149,7 +150,7 @@ class TimeoutCommand extends Command {
     await TimeoutScheduler.scheduleMute(member, duration, channel.id, createdCase.caseID); // If case created succesfully, schedule the mute...
 
     await channel
-      .createOverwrite(member, {
+      .updateOverwrite(member, {
         SEND_MESSAGES: false,
         ADD_REACTIONS: false,
       })

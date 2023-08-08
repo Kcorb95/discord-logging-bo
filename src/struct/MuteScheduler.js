@@ -55,7 +55,7 @@ module.exports = class MuteScheduler {
               stripIndents`
                 **User**: ${member} -- ${member.id}
                 **Action**: Unmute
-                **Moderator**: --Automatic--`
+                **Moderator**: ${guild.client.user}`
             )
             .setTimestamp();
           caseLogHook.send(embed);

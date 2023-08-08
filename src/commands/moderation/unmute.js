@@ -35,6 +35,7 @@ class UnMuteCommand extends Command {
   }
 
   userPermissions(message) {
+    if (message.author.id === this.client.ownerID) return null;
     const canBeRun = Permissions.canRun(this, message.guild, message.channel, message.member);
     if (canBeRun === true) return null;
     return "NoPerms";

@@ -50,6 +50,7 @@ class MuteCommand extends Command {
   }
 
   userPermissions(message) {
+    if (message.author.id === this.client.ownerID) return null;
     const canBeRun = Permissions.canRun(this, message.guild, message.channel, message.member);
     if (canBeRun === true) return null;
     return "NoPerms";
@@ -80,6 +81,7 @@ class MuteCommand extends Command {
         "Quick Mute -- Please DM user to complete",
         null,
         duration,
+        null,
         0,
         message.member
       );

@@ -5,7 +5,7 @@ const Moderation = require("../../struct/Moderation");
 class WarnCommand extends Command {
   constructor() {
     super("warn", {
-      aliases: ["warn", "strike"],
+      aliases: ["warn"],
       category: "moderation",
       channel: "guild",
       ownerOnly: false,
@@ -15,13 +15,13 @@ class WarnCommand extends Command {
           match: "content",
           type: "nonModMember",
           prompt: {
-            start: "What member would you like to warn/strike?",
+            start: "What member would you like to warn?",
             retry: (message, { failure }) => `${failure.value} Try again...`,
           },
         },
       ],
       description: {
-        content: `Warns/strikes a user and DMs them with a separate reason. (Like the old Strike command)`,
+        content: `Warns a user and DMs them with a separate reason.`,
         usage: "<Member>",
         examples: ["@User", "@Member", "1234515132412", "eclipse", "eclipse#1995"],
       },
@@ -31,14 +31,13 @@ class WarnCommand extends Command {
   }
 
   userPermissions(message) {
+    if (message.author.id === this.client.ownerID) return null;
     const canBeRun = Permissions.canRun(this, message.guild, message.channel, message.member);
     if (canBeRun === true) return null;
     return "NoPerms";
   }
 
   async exec(message, { member }) {
-    // Can we do this better by checking what alias was used?
-    const type = message.content.toUpperCase().includes("WARN") ? "Warn" : "Strike";
     // Use webhook to avoid getting ratelimited
     const webhook = await this.client.messageUtils.fetchWebhook(message.channel, "Asuka");
 
@@ -73,7 +72,7 @@ class WarnCommand extends Command {
     const createdCase = await Moderation.createCase(
       member,
       member.guild,
-      type,
+      "Warn",
       reason,
       dmReason,
       screenshot !== "SKIP" ? screenshot : null, // If screenshot provided, (will only ever be SKIP or a url..), include it otherwise null
@@ -85,10 +84,9 @@ class WarnCommand extends Command {
     if (createdCase === "NO_CHANNEL") return webhook.send(`**Error:** Please configure the case logs channel for this bot!`);
     await member
       .send(
-        `You have recieved a ${type === "Warn" ? "warning" : "strike"} in ${
+        `You have recieved a warning in ${
           member.guild.name
-        }!\nReason: ${dmReason}\nPlease familiarize yourself with the rules to avoid further infractions. ${
-          type === "STRIKE" ? "Having 3+ strikes can lead to kicks and/or bans..." : ""
+        }!\nReason: ${dmReason}\nPlease familiarize yourself with the rules to avoid further infractions.
         }\nIf you have any questions, please reach out to a mod in #support or open a ticket in #tickets :)`
       )
       .catch((e) => {

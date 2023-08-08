@@ -200,50 +200,54 @@ module.exports = class Moderation {
   }
 
   static formatDescription(user, infractionType, reason, dmReason, muteDuration, timeoutChannelID, prune, moderator) {
+    const tag = user.tag || user.user.tag;
+    const USER = `${user} // ${tag} (${user.id})`;
+    const MODERATOR = `${moderator} // ${moderator.user.username}#${moderator.user.discriminator} (${moderator.id})`;
+
     switch (infractionType) {
       case "Note":
         return stripIndents`
-                    **User**: ${user} (${user.id})
+                    **User**: ${USER}
                     **Action**: Note
                     **Reason**: ${reason}
-                    **Moderator**: ${moderator} -- ${moderator.id}
+                    **Moderator**: ${MODERATOR}
                     `;
       case "Mute":
         return stripIndents`
-                    **User**: ${user} (${user.id})
+                    **User**: ${USER}
                     **Action**: Mute
                     **Duration**: ${ms(muteDuration, true)}
                     **Reason**: ${reason}
                     **DM Message**: ${dmReason}
-                    **Moderator**: ${moderator} -- ${moderator.id}
+                    **Moderator**: ${MODERATOR}
                     `;
 
       case "Timeout":
         return stripIndents`
-                    **User**: ${user} (${user.id})
+                    **User**: ${USER}
                     **Action**: Mute
                     **Duration**: ${ms(muteDuration, true)}
                     **Channel**: <#${timeoutChannelID}>
                     **Reason**: ${reason}
                     **DM Message**: ${dmReason}
-                    **Moderator**: ${moderator} -- ${moderator.id}
+                    **Moderator**: ${MODERATOR}
                     `;
       case "Ban":
         return stripIndents`
-                    **User**: ${user} (${user.id})
+                    **User**: ${USER}
                     **Action**: Ban
                     **Reason**: ${reason}
                     **DM Message**: ${dmReason}
                     **Prune:** ${prune} Days
-                    **Moderator**: ${moderator} -- ${moderator.id}
+                    **Moderator**: ${MODERATOR}
                     `;
       default:
         return stripIndents`
-                    **User**: ${user} (${user.id})
+                    **User**: ${USER}
                     **Action**: ${infractionType}
                     **Reason**: ${reason}
                     **DM Message**: ${dmReason}
-                    **Moderator**: ${moderator} -- ${moderator.id}
+                    **Moderator**: ${MODERATOR}
                     `;
     }
   }
@@ -269,7 +273,7 @@ module.exports = class Moderation {
     const embed = message.embeds[0];
     embed.setDescription(
       this.formatDescription(
-        await guild.members.fetch(foundCase.userID),
+        await guild.client.users.fetch(foundCase.userID),
         foundCase.infractionType,
         reason,
         foundCase.dmReason,

@@ -14,6 +14,9 @@ const Settings = db.define("settings", {
   caseLogChannel: {
     type: Sequelize.STRING,
   },
+  botAlertsChannel: {
+    type: Sequelize.STRING,
+  },
   muteRole: {
     type: Sequelize.STRING,
   },

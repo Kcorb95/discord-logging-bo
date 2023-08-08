@@ -1,8 +1,8 @@
 {
   "name": "sakura",
   "version": "1.0.0",
-  "description": "Sakura - The Discord Bot",
-  "license": "MIT",
+  "description": "Code that does things...",
+  "license": "UNLICENSED",
   "author": "Kevin",
   "scripts": {
     "start": "node ./src/index.js",
@@ -11,34 +11,35 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AkiraKokiri/Rei.git"
+    "url": "git+https://github.com/AkiraKokiri/Sakura.git"
   },
   "bugs": {
-    "url": "https://github.com/AkiraKokiri/Rei/issues"
+    "url": "https://github.com/AkiraKokiri/Sakura/issues"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.3.2",
-    "@naval-base/ms": "^3.1.0",
-    "axios": "^0.20.0",
-    "chalk": "^4.1.0",
-    "common-tags": "^1.8.0",
-    "discord-akairo": "^8.1.0",
-    "discord.js": "^12.3.1",
-    "dotenv": "^8.2.0",
-    "emoji-regex": "^9.0.0",
+    "@discordjs/opus": "0.5.0",
+    "@naval-base/ms": "3.1.0",
+    "@sentry/node": "6.2.3",
+    "@sentry/tracing": "6.2.3",
+    "axios": "0.21.1",
+    "chalk": "4.1.0",
+    "common-tags": "1.8.0",
+    "discord-akairo": "github:discord-akairo/discord-akairo",
+    "discord.js": "github:discordjs/discord.js",
+    "dotenv": "8.2.0",
+    "emoji-regex": "9.2.2",
     "erlpack": "github:hammerandchisel/erlpack",
-    "google-tts-api": "^0.0.4",
-    "lodash": "^4.17.20",
-    "moment": "^2.29.0",
-    "moment-duration-format": "^2.3.2",
-    "pg": "^8.3.3",
-    "raven": "^2.6.4",
-    "sequelize": "^5.8.7"
+    "google-tts-api": "2.0.2",
+    "lodash": "4.17.21",
+    "moment": "2.29.1",
+    "moment-duration-format": "2.3.2",
+    "pg": "8.5.1",
+    "sequelize": "6.6.1"
   },
   "devDependencies": {
-    "eslint": "^7.9.0",
-    "eslint-config-aqua": "^7.3.0",
-    "nodemon": "^2.0.4"
+    "eslint": "7.22.0",
+    "eslint-config-aqua": "8.1.2",
+    "nodemon": "2.0.7"
   },
   "eslintConfig": {
     "extends": "aqua",
@@ -64,6 +65,6 @@
     }
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   }
 }

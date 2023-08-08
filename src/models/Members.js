@@ -2,7 +2,11 @@ const { db } = require('../struct/Database');
 const Sequelize = require('sequelize');
 
 const Members = db.define('members', {
-    guildIDUserIDPair: { // 'userID.guildID'
+    userID: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    guildID: {
         type: Sequelize.STRING,
         allowNull: false
     },

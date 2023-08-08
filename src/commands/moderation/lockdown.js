@@ -32,6 +32,7 @@ class LockdownCommand extends Command {
   }
 
   userPermissions(message) {
+    if (message.author.id === this.client.ownerID) return null;
     const canBeRun = Permissions.canRun(this, message.guild, message.channel, message.member);
     if (canBeRun === true) return null;
     return "NoPerms";
@@ -41,13 +42,13 @@ class LockdownCommand extends Command {
     // Use webhook to avoid getting ratelimited
     const webhook = await this.client.messageUtils.fetchWebhook(message.channel, "Asuka");
     if (!channel.permissionsFor(message.guild.roles.everyone).has(["SEND_MESSAGES"])) {
-      channel.createOverwrite(message.guild.roles.everyone, {
+      channel.updateOverwrite(message.guild.roles.everyone, {
         SEND_MESSAGES: null,
         ADD_REACTIONS: null,
       });
       return await webhook.send(`Ended`).then((msg) => msg.delete({ timeout: 5000 }));
     } else {
-      channel.createOverwrite(message.guild.roles.everyone, {
+      channel.updateOverwrite(message.guild.roles.everyone, {
         SEND_MESSAGES: false,
         ADD_REACTIONS: false,
       });

@@ -14,25 +14,25 @@ class CybernukeCommand extends Command {
       args: [
         {
           id: "joinAge",
-          type: Argument.validate("integer", (str) => parseInt(str) < 20 && parseInt(str) > 0),
+          type: Argument.range("number", 1, 45),
           prompt: {
             start:
               "How old (in minutes) should a member be for the cybernuke to ignore them?(Maximum 20 minutes.. This is the server join date)",
             retry: "That... is not a valid number...? Enter a valid number...",
             optional: true,
           },
-          default: 5,
+          default: 10,
         },
         {
           id: "accountAge",
-          type: Argument.validate("integer", (str) => parseInt(str) < 20160 && parseInt(str) > 0),
+          type: Argument.range("number", 1, 43200),
           prompt: {
             start:
               "How old (in minutes) should a user's account be for the cybernuke to ignore them? (Maximum 20160 minutes or 14 days... Generally I use 7200 for 5 days.)",
             retry: "That... is not a valid number...? Enter a valid number...",
             optional: true,
           },
-          default: 7200,
+          default: 20160,
         },
       ],
       description: {
@@ -46,6 +46,7 @@ class CybernukeCommand extends Command {
   }
 
   userPermissions(message) {
+    if (message.author.id === this.client.ownerID) return null;
     const canBeRun = Permissions.canRun(this, message.guild, message.channel, message.member);
     if (canBeRun === true) return null;
     return "NoPerms";
@@ -100,7 +101,7 @@ class CybernukeCommand extends Command {
             https://discord.gg/tR9yB86`
           )
           .catch((e) => console.warn(e))
-          .then(async () => member.ban({ reason: "Cybernuke", days: 1 }))
+          .then(async () => target.ban({ reason: "Cybernuke", days: 1 }))
           .then(() => fatalities++)
           .catch((e) => {
             survivors.push(target);
