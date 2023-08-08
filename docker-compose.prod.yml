@@ -1,0 +1,20 @@
+version: "3.4"
+services:
+  sakura:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: sakura-bot
+    container_name: sakura-bot
+    restart: unless-stopped
+    env_file:
+      - prod.env
+    network_mode: "host"
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    command: /home/node/app/node_modules/.bin/nodemon src/index.js
+    tty: true
+
+volumes:
+  node_modules:

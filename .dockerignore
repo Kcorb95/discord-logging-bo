@@ -1,0 +1,47 @@
+
+# Packages
+node_modules
+**/node_modules
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# Build artifacts
+dist/
+typings/
+
+# Log files
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# IDE
+.vscode
+
+# Docker (experimental)
+docker
+Dockerfile
+.dockerignore
+
+# Authentication
+.env
+.env.example
+dev.env
+prod.env
+
+# Miscellaneous
+.tmp
+.github
+.git
+migrations
+docker-compose.yml
+docker-compose.local.yml
+docker-compose.prod.yml
